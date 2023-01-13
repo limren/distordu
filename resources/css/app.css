@@ -3,11 +3,91 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: "Noto Sans", sans-serif;
 }
 
 .home {
     width: 100vw;
     height: 100vh;
-    background-image: url("../../public/assets/img/wizard.svg");
+    background-image: url("../../public/assets/img/wizard.jpg");
     background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login,
+.register {
+    background-color: #36393f;
+    color: white;
+    padding: 35px;
+}
+.login > div,
+.register > div {
+    text-align: center;
+}
+.login > div p,
+.register > div p {
+    color: #a5a7ab;
+    font-size: 15px;
+}
+.login > div h2,
+.register > div h2 {
+    margin-bottom: 7px;
+    color: #fafafa;
+}
+.form div {
+    display: flex;
+    flex-direction: column;
+    margin: 10px 0;
+}
+
+.form div label {
+    padding: 8px 0;
+    color: #b9bbbe;
+    font-weight: 900;
+    font-size: 14px;
+}
+
+.form div input {
+    padding: 9px;
+    width: 400px;
+    color: white;
+    background-color: #202225;
+    border: none;
+}
+
+.form #submit {
+    width: 100%;
+    border: none;
+    background-color: #5865f2;
+    color: white;
+    padding: 10px;
+    margin-top: 20px;
+}
+
+.birthdate {
+    display: flex;
+    flex-direction: row;
+}
+
+.legend {
+    font-size: 13px;
+    color: #b9bbbe;
+    font-weight: 800;
+    margin-top: 8px;
+}
+
+/*  */
+.blue {
+    color: #00aff4;
+}
+
+.alert {
+    font-size: 15px;
+    padding: 15px;
+    margin-top: 20px;
+}
+.green {
+    background-color: green;
 }

@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -18,7 +20,8 @@ class AuthController extends Controller
                 [
                     'name' => 'required',
                     'email' => 'required|email|unique:users,email',
-                    'password' => 'required'
+                    'password' => 'required',
+                    'birthdate' => 'required'
                 ]
             );
             if ($validateUser->fails()) {
@@ -31,7 +34,8 @@ class AuthController extends Controller
             $user = User::create([
                 'name' => $request->name,
                 'email' => $request->email,
-                'password' => Hash::make($request->password)
+                'password' => Hash::make($request->password),
+                'birthdate' => new Carbon($request->birthdate)
             ]);
             return response()->json([
                 'status' => true,
@@ -70,6 +74,7 @@ class AuthController extends Controller
             }
             $user = User::where('email', $request->email)->first();
             return response()->json([
+                'user' => $user,
                 'status' => true,
                 'message' => 'User logged in successfully',
                 'token' => $user->createToken('api_token')->plainTextToken
