@@ -12,22 +12,27 @@ import { Auth } from "./Pages/Auth/Auth";
 import { Login } from "./Pages/Auth/Login";
 import { Register } from "./Pages/Auth/Register";
 import "../css/app.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Home } from "./Home";
 import { ProtectedRoute } from "./Utils/ProtectedRoute";
 require("./bootstrap");
 
 const App = () => {
-    const [user, setUser] = useState({});
+    const [user, setUser] = useState(
+        JSON.parse(localStorage.getItem("user")) || null
+    );
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
     const [username, setUsername] = useState("");
-    const [isAuth, setIsAuth] = useState(false);
+    const [isAuth, setIsAuth] = useState(
+        localStorage.getItem("isAuthenticated") || false
+    );
+
     const router = createHashRouter([
         {
             path: "/",
             element: (
-                <ProtectedRoute>
+                <ProtectedRoute isAuth={isAuth}>
                     <Home />
                 </ProtectedRoute>
             ),
@@ -66,6 +71,10 @@ const App = () => {
                 />
             ),
         },
+        // {
+        //     path: "/logout",
+        //     element: <Logout />,
+        // },
     ]);
     // createRoutesFromElements(
     //     <Route

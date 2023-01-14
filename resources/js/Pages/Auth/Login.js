@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export const Login = ({
     setPassword,
@@ -10,6 +10,7 @@ export const Login = ({
     email,
     password,
 }) => {
+    const navigate = useNavigate();
     const [message, setMessage] = useState("");
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -24,6 +25,12 @@ export const Login = ({
                 setUser(data.user);
                 setIsAuth(true);
                 setMessage(data.message);
+                localStorage.setItem("user", JSON.stringify(data.user));
+                localStorage.setItem("isAuthenticated", true);
+
+                setTimeout(() => {
+                    navigate("/");
+                }, 1000);
             });
     };
     return (
