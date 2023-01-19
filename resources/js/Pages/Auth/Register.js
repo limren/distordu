@@ -29,10 +29,7 @@ export const Register = ({
         };
         axios
             .post("http://distordu.test/api/register", data)
-            .then((res) => {
-                console.log(res);
-                return res.data;
-            })
+            .then((res) => res.data)
             .then((data) => {
                 setMessage(data.message);
                 if (data.status) {

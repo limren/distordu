@@ -1,12 +1,12 @@
 import React from "react";
 import { Chat } from "./Components/Chat";
-import { Guilds } from "./Components/Guilds";
+import { Friends } from "./Components/Friends";
 
 export const Home = () => {
     return (
         <div className="main">
             <div>
-                <Guilds />
+                <Friends />
             </div>
             <div>
                 <Chat />
