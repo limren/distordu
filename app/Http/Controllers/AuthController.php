@@ -12,13 +12,31 @@ use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
+    // Create an unique bar code for user
+    public function genBarCode(string $username)
+    {
+        $barCodeUser = mt_rand(0, 9999);
+        // If the bar code already exists, then create another one until it's unique
+        if ($this->genBarCodeExists($barCodeUser, $username)) {
+            return $this->genBarCode($username);
+        }
+        return $barCodeUser;
+    }
+    public function genBarCodeExists(int $barcode, string $username)
+    {
+        if (User::where("barcode", "=", $barcode)->where("username", "=", $username)->get()) {
+            return 0;
+        } else {
+            return 1;
+        }
+    }
     public function register(Request $request)
     {
         try {
             $validateUser = Validator::make(
                 $request->all(),
                 [
-                    'name' => 'required',
+                    'username' => 'required',
                     'email' => 'required|email|unique:users,email',
                     'password' => 'required',
                     'birthdate' => 'required'
@@ -31,11 +49,14 @@ class AuthController extends Controller
                     'errors' => $validateUser->errors()
                 ], 401);
             }
+            // Create an unique bar code for each user
+            $barCode = $this->genBarCode($request->username);
             $user = User::create([
-                'name' => $request->name,
+                'username' => $request->username,
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
-                'birthdate' => new Carbon($request->birthdate)
+                'birthdate' => new Carbon($request->birthdate),
+                "barcode" => $barCode
             ]);
             return response()->json([
                 'status' => true,
