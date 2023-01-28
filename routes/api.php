@@ -32,13 +32,14 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     Route::controller(UserController::class)->group(function () {
         // Profile picture of the user
-        Route::get("profile/profilepicture", "getProfilePicture");
-        Route::post("profile/profilepicture", "getProfilePicture");
+        Route::post("profile/profilepicture", "storeProfilePicture");
         Route::put("profile/profilepicture", "updateProfilePicture");
         // Username
         Route::put("profile/username", "updateUsername");
     });
 });
+
+Route::get("profile/profilepicture", [UserController::class, "getProfilePicture"]);
 
 Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
