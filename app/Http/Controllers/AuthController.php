@@ -56,7 +56,8 @@ class AuthController extends Controller
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
                 'birthdate' => new Carbon($request->birthdate),
-                "barcode" => $barCode
+                'barcode' => $barCode,
+                'img_path' => 'default.svg'
             ]);
             return response()->json([
                 'status' => true,

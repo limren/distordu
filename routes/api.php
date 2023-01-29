@@ -33,7 +33,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::controller(UserController::class)->group(function () {
         // Profile picture of the user
         Route::post("profile/profilepicture", "storeProfilePicture");
-        Route::put("profile/profilepicture", "updateProfilePicture");
+        Route::put("profile/profilepicture", "storeProfilePicture");
+        Route::delete("profile/profilepicture", "deleteProfilePicture");
         // Username
         Route::put("profile/username", "updateUsername");
     });
