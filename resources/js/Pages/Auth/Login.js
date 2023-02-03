@@ -9,6 +9,7 @@ export const Login = ({
     setIsAuth,
     email,
     password,
+    setToken,
 }) => {
     const navigate = useNavigate();
     const [message, setMessage] = useState("");
@@ -23,11 +24,16 @@ export const Login = ({
             .then((res) => res.data)
             .then((data) => {
                 setUser(data.user);
+                setToken(data.token);
                 setIsAuth(true);
                 setMessage(data.message);
                 localStorage.setItem("user", JSON.stringify(data.user));
+                localStorage.setItem("token", JSON.stringify(data.token));
                 localStorage.setItem("isAuthenticated", true);
-
+                axios.create({
+                    timeout: 1000,
+                    headers: { Authorization: "Bearer " + data.token },
+                });
                 setTimeout(() => {
                     navigate("/");
                 }, 1000);

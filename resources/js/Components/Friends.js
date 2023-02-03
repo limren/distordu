@@ -1,8 +1,9 @@
+import axios from "axios";
 import React, { useEffect } from "react";
 
-export const Friends = () => {
+export const Friends = ({ user }) => {
     useEffect(() => {
-        console.log("friends loaded");
+        axios.get(`http://distordu.test/api/friends/get/${user.id}`);
     }, []);
     return (
         <div className="friends">

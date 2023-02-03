@@ -9,10 +9,10 @@ use Illuminate\Support\Facades\Validator;
 class FriendsController extends Controller
 {
 
-    public function getFriends(Request $request)
+    public function getFriends(String $user_id)
     {
 
-        return Friends::where("user_id", $request->user_id)->get();
+        return Friends::find($user_id)->get();
     }
     public function deleteFriend(Request $request)
     {

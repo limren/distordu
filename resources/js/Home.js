@@ -2,11 +2,11 @@ import React from "react";
 import { Chat } from "./Components/Chat";
 import { Friends } from "./Components/Friends";
 
-export const Home = () => {
+export const Home = ({ user }) => {
     return (
         <div className="main">
             <div>
-                <Friends />
+                <Friends user={user} />
             </div>
             <div>
                 <Chat />

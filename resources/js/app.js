@@ -22,6 +22,7 @@ const App = () => {
         JSON.parse(localStorage.getItem("user")) || null
     );
     const [password, setPassword] = useState("");
+    const [token, setToken] = useState(localStorage.getItem("token") || null);
     const [email, setEmail] = useState("");
     const [username, setUsername] = useState("");
     const [isAuth, setIsAuth] = useState(
@@ -33,7 +34,7 @@ const App = () => {
             path: "/",
             element: (
                 <ProtectedRoute isAuth={isAuth}>
-                    <Home />
+                    <Home user={user} token={token} />
                 </ProtectedRoute>
             ),
         },
@@ -49,6 +50,7 @@ const App = () => {
                             setIsAuth={setIsAuth}
                             password={password}
                             email={email}
+                            setToken={setToken}
                         />
                     }
                 />
