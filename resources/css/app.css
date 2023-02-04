@@ -106,7 +106,7 @@
 }
 /* Friends compo */
 .friends {
-    max-width: 80px;
+    max-width: 100px;
 }
 .sidebar {
     width: 100%;
@@ -140,9 +140,14 @@
     margin-bottom: 10px;
 }
 
-/* Chat compo */
-.chat {
+/* Main side page compo */
+.main-side-page {
     width: 100%;
     height: 100%;
     background-color: #25282d;
+}
+
+.chat {
+    width: 100%;
+    height: 100%;
 }

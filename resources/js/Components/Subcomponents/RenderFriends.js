@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const RenderFriends = ({ friends }) => {
     return (
@@ -6,17 +7,18 @@ const RenderFriends = ({ friends }) => {
             <h3>Friends</h3>
             {friends.map((friend) => {
                 return (
-                    <img
-                        title={friend.username}
-                        alt="Profile picture image of your friend !"
-                        key={friend.id}
-                        className="pfp"
-                        src={
-                            friend.img_path === null
-                                ? "images/default.png"
-                                : friend.img_path
-                        }
-                    />
+                    <Link key={friend.id} to={`/chat/${friend.id}`}>
+                        <img
+                            title={friend.username}
+                            alt="Profile picture of your friend"
+                            className="pfp"
+                            src={
+                                friend.img_path === null
+                                    ? "images/default.png"
+                                    : friend.img_path
+                            }
+                        />
+                    </Link>
                 );
             })}
         </div>

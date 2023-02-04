@@ -32,7 +32,7 @@ class ChatMessageEvent implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('public.chatmessage.1');
+        return new Channel('chat');
     }
     public function broadcastAs()
     {

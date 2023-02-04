@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import instance from "../Utils/configAxios";
 import RenderFriends from "./Subcomponents/RenderFriends";
 
@@ -17,7 +18,9 @@ export const Friends = ({ user }) => {
         <div className="friends">
             <div className="sidebar">
                 {friends.length == 0 ? "" : <RenderFriends friends={friends} />}
-                <img src="images/settings.svg" className="settings" />
+                <Link to="/settings">
+                    <img src="images/settings.svg" className="settings" />
+                </Link>
             </div>
         </div>
     );

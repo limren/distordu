@@ -1,5 +1,6 @@
 <?php
 
+use App\Events\ChatMessageEvent;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FriendRequestsController;
 use App\Http\Controllers\FriendsController;
@@ -37,6 +38,10 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::delete("profile/profilepicture", "deleteProfilePicture");
         // Username
         Route::put("profile/username", "updateUsername");
+    });
+    Route::get("/chatmessage", function (Request $request) {
+        event(new ChatMessageEvent($request->message));
+        return null;
     });
 });
 

@@ -15,6 +15,8 @@ import "../css/app.css";
 import { useEffect, useState } from "react";
 import { Home } from "./Home";
 import { ProtectedRoute } from "./Utils/ProtectedRoute";
+import { Chat } from "./Components/Chat";
+import { Settings } from "./Components/Settings";
 require("./bootstrap");
 
 const App = () => {
@@ -34,7 +36,23 @@ const App = () => {
             path: "/",
             element: (
                 <ProtectedRoute isAuth={isAuth}>
-                    <Home user={user} />
+                    <Home user={user} child={<Chat />} />
+                </ProtectedRoute>
+            ),
+        },
+        {
+            path: "/settings",
+            element: (
+                <ProtectedRoute isAuth={isAuth}>
+                    <Home user={user} child={<Settings user={user} />} />
+                </ProtectedRoute>
+            ),
+        },
+        {
+            path: "/chat/:friendId",
+            element: (
+                <ProtectedRoute isAuth={isAuth}>
+                    <Home user={user} child={<Chat user={user} />} />
                 </ProtectedRoute>
             ),
         },
