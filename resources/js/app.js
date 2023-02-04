@@ -34,7 +34,7 @@ const App = () => {
             path: "/",
             element: (
                 <ProtectedRoute isAuth={isAuth}>
-                    <Home user={user} token={token} />
+                    <Home user={user} />
                 </ProtectedRoute>
             ),
         },

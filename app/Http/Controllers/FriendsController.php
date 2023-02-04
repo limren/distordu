@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Friends;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -11,8 +12,16 @@ class FriendsController extends Controller
 
     public function getFriends(String $user_id)
     {
-
-        return Friends::find($user_id)->get();
+        $friendsArray = [];
+        $friends = Friends::where("friend_id", $user_id)->get();
+        foreach ($friends as $friend) {
+            $friendsProfile = User::where("id", $friend->user_id)->first();
+            // TODO: Reconsider what will be pushed regarding friends info into array
+            if ($friend->status === "accepted") {
+                array_push($friendsArray, $friendsProfile);
+            }
+        }
+        return $friendsArray;
     }
     public function deleteFriend(Request $request)
     {

@@ -4,13 +4,9 @@ import { Friends } from "./Components/Friends";
 
 export const Home = ({ user }) => {
     return (
-        <div className="main">
-            <div>
-                <Friends user={user} />
-            </div>
-            <div>
-                <Chat />
-            </div>
+        <div className="home-main">
+            <Friends user={user} />
+            <Chat />
         </div>
     );
 };

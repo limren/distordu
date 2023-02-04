@@ -41,7 +41,7 @@ class UserController extends Controller
         }
         $imageName = time() . '.' . $request->pfp_image->extension();
         User::where('id', $request->user['id'])->update(array('img_path' => $imageName));
-        $request->pfp_image->Storage::move(public_path('images', $imageName));
+        $request->pfp_image->Storage::move(public_path('images/', $imageName));
         return response()->json([
             'status' => true,
             'message' => 'Profile picture has been successfully changed',

@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Route;
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('logout', [AuthController::class, 'logout']);
     // API endpoints concerning friends model
-    Route::get('friends/get', [FriendsController::class, 'getFriends']);
+    Route::get('friends/get/{user_id}', [FriendsController::class, 'getFriends']);
     Route::post('friends/delete', [FriendsController::class, 'deleteFriend']);
     // API endpoints concerning friend requests model
     Route::post('friendrequests/get', [FriendRequestsController::class, "getFriendRequests"]);
