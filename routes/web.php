@@ -18,8 +18,3 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-
-Route::get("/chatmessage", function (Request $request) {
-    event(new ChatMessageEvent($request->message));
-    return null;
-});

@@ -2,8 +2,10 @@
 
 use App\Events\ChatMessageEvent;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ConversationController;
 use App\Http\Controllers\FriendRequestsController;
 use App\Http\Controllers\FriendsController;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -39,10 +41,13 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         // Username
         Route::put("profile/username", "updateUsername");
     });
+    Route::get("/message/{conversation_id}/{user_id}", [MessageController::class, "getMessage"]);
+    Route::post("/message/post", [MessageController::class, "postMessage"]);
     Route::get("/chatmessage", function (Request $request) {
         event(new ChatMessageEvent($request->message));
         return null;
     });
+    Route::post("/conversation/create", [ConversationController::class, "createConversation"]);
 });
 
 Route::get("profile/profilepicture", [UserController::class, "getProfilePicture"]);

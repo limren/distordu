@@ -45,7 +45,7 @@ class FriendsController extends Controller
             }
             return response()->json([
                 'status' => true,
-                'message' => 'Friend have been successfully deleted',
+                'message' => 'Friend has been successfully deleted',
             ], 200);
         } catch (\Throwable $th) {
             return response()->json([
