@@ -10,17 +10,6 @@ use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
-
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('logout', [AuthController::class, 'logout']);
     // API endpoints concerning friends model
@@ -31,8 +20,9 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('friendrequests/create', [FriendRequestsController::class, 'createFriendRequest']);
     Route::post('friendrequests/accept', [FriendRequestsController::class, 'acceptFriendRequest']);
     Route::post('friendrequests/deny', [FriendRequestsController::class, 'denyFriendRequest']);
-    // API endpoints related to user's profile
 
+
+    // API endpoints related to user's profile
     Route::controller(UserController::class)->group(function () {
         // Profile picture of the user
         Route::post("profile/profilepicture", "storeProfilePicture");
@@ -48,9 +38,10 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         return null;
     });
     Route::post("/conversation/create", [ConversationController::class, "createConversation"]);
+    Route::post("/conversation/getId", [ConversationController::class, "getConversationId"]);
 });
 
 Route::get("profile/profilepicture", [UserController::class, "getProfilePicture"]);
 
-Route::post('register', [AuthController::class, 'register']);
-Route::post('login', [AuthController::class, 'login']);
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);

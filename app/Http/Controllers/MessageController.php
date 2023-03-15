@@ -38,4 +38,8 @@ class MessageController extends Controller
             "message" => "Message created successfully",
         ], 200);
     }
+    public function getAllMessages(int $conversation_id)
+    {
+        return Message::where("conversation_id", $conversation_id)->get();
+    }
 }

@@ -17,6 +17,7 @@ import { Home } from "./Home";
 import { ProtectedRoute } from "./Utils/ProtectedRoute";
 import { Chat } from "./Components/Chat";
 import { Settings } from "./Components/Settings";
+import { Dashboard } from "./Components/Subcomponents/Dashboard";
 require("./bootstrap");
 
 const App = () => {
@@ -30,13 +31,12 @@ const App = () => {
     const [isAuth, setIsAuth] = useState(
         localStorage.getItem("isAuthenticated") || false
     );
-
     const router = createHashRouter([
         {
             path: "/",
             element: (
                 <ProtectedRoute isAuth={isAuth}>
-                    <Home user={user} child={<Chat />} />
+                    <Home user={user} child={<Dashboard />} />
                 </ProtectedRoute>
             ),
         },

@@ -22,7 +22,7 @@ export const Register = ({
     const handleSubmit = (e) => {
         e.preventDefault();
         const data = {
-            name: username,
+            username: username,
             email: email,
             password: password,
             birthdate: birthdate,

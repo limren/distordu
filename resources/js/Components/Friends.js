@@ -4,6 +4,7 @@ import instance from "../Utils/configAxios";
 import RenderFriends from "./Subcomponents/RenderFriends";
 
 export const Friends = ({ user }) => {
+    console.log(user);
     const [friends, setFriends] = useState([]);
     useEffect(() => {
         instance
