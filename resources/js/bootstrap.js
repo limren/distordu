@@ -26,5 +26,12 @@ window.Echo = new Echo({
     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
     forceTLS: false,
     wsHost: window.location.hostname,
+    // Passing token to say that we're logged in
+    auth: {
+        headers: {
+            Authorization:
+                "Bearer " + JSON.parse(localStorage.getItem("token")),
+        },
+    },
     wsPort: 6001,
 });

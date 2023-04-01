@@ -28,14 +28,15 @@ class MessageController extends Controller
                 "errors" => $validateMessage->errors()
             ], 500);
         }
-        Message::create([
+        $message = Message::create([
             "conversation_id" => $request->conversation_id,
             "user_id_sender" => $request->user_id, // Maybe not the best name 
             "message" => $request->message
         ]);
         return response()->json([
             "status" => true,
-            "message" => "Message created successfully",
+            "message" => $message,
+            "message_status" => "Message created successfully",
         ], 200);
     }
     public function getAllMessages(int $conversation_id)

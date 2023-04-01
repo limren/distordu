@@ -31,6 +31,7 @@ const App = () => {
     const [isAuth, setIsAuth] = useState(
         localStorage.getItem("isAuthenticated") || false
     );
+
     const router = createHashRouter([
         {
             path: "/",
@@ -91,26 +92,7 @@ const App = () => {
                 />
             ),
         },
-        // {
-        //     path: "/logout",
-        //     element: <Logout />,
-        // },
     ]);
-    // createRoutesFromElements(
-    //     <Route
-    //         path="/"
-    //         // element={<ProtectedRoute children={<Home />} isAuth={isAuth} />}
-    //         element={<Home />}
-    //     >
-    //         <Route index path="login" element={<Login />} />
-    //     </Route>
-    // )
-    // const chan = Echo.channel("public.chatmessage.1");
-    // chan.subscribed(() => {
-    //     console.log("Connected");
-    // }).listen(".chatmessage", (e) => {
-    //     console.log(e);
-    // });
 
     return (
         <div>

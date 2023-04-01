@@ -16,3 +16,9 @@ use Illuminate\Support\Facades\Broadcast;
 Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
     return (int) $user->id === (int) $id;
 });
+
+// If user is connected, then we allow him access  to private channels
+Broadcast::channel('private.chat.{conversationId}', function ($user, $conversationId) {
+    // He would try to access the channel only if he's connected
+    return true;
+});

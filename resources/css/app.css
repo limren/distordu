@@ -6,6 +6,11 @@
     font-family: "Noto Sans", sans-serif;
 }
 
+#full-width,
+.full-width {
+    width: 100%;
+}
+
 .home {
     width: 100vw;
     height: 100vh;
@@ -97,7 +102,7 @@
 .home-main {
     display: flex;
     flex-direction: row;
-    width: 100vw;
+    max-width: 100vw;
     height: 100vh;
 }
 .home-main > div {
@@ -147,7 +152,52 @@
     background-color: #25282d;
 }
 
+/* Home component */
+
+/* Chat component */
 .chat {
     width: 100%;
     height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-main {
+    width: 100%;
+    height: 100%;
+}
+/* Message component */
+
+.chat-footer {
+    width: 100%;
+}
+.chat-footer form {
+    display: flex;
+    flex-direction: row;
+}
+
+.chat-footer form input:nth-of-type(1) {
+    width: 95%;
+}
+.chat-footer form input:nth-of-type(2) {
+    width: 5%;
+}
+.messages {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    padding-bottom: 30px;
+}
+
+.message-sender {
+    align-self: flex-end;
+    color: green;
+}
+
+.message-receiver {
+    align-self: flex-start;
+    color: blue;
 }

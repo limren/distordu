@@ -34,7 +34,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get("/message/{conversation_id}/{user_id}", [MessageController::class, "getMessage"]);
     Route::post("/message/post", [MessageController::class, "postMessage"]);
     Route::get("/chatmessage", function (Request $request) {
-        event(new ChatMessageEvent($request->message));
+        event(new ChatMessageEvent($request->message, $request->conversation_id));
         return null;
     });
     Route::post("/conversation/create", [ConversationController::class, "createConversation"]);

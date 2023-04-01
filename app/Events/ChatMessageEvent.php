@@ -15,14 +15,16 @@ class ChatMessageEvent implements ShouldBroadcast
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $message;
+    public $conversationId;
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct(String $message)
+    public function __construct(String $message, int $conversationId)
     {
         $this->message = $message;
+        $this->conversationId = $conversationId;
     }
 
     /**
@@ -32,7 +34,7 @@ class ChatMessageEvent implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('chat');
+        return new PrivateChannel('chat.' . $this->conversationId);
     }
     public function broadcastAs()
     {
