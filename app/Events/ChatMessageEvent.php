@@ -2,6 +2,7 @@
 
 namespace App\Events;
 
+use App\Models\Conversation;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -14,17 +15,19 @@ class ChatMessageEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $message;
-    public $conversationId;
+    private String $message;
+    private int $conversationId;
+    private int $senderId;
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct(String $message, int $conversationId)
+    public function __construct(String $message, int $conversationId, int $senderId)
     {
         $this->message = $message;
         $this->conversationId = $conversationId;
+        $this->senderId = $senderId;
     }
 
     /**
@@ -38,12 +41,13 @@ class ChatMessageEvent implements ShouldBroadcast
     }
     public function broadcastAs()
     {
-        return 'chatmessage';
+        return 'chatmessage.' . $this->senderId;
     }
     public function broadcastWith()
     {
         return [
             'message' => $this->message,
+            'senderId' => $this->senderId
         ];
     }
 }

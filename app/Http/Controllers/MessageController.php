@@ -9,9 +9,13 @@ use Illuminate\Support\Facades\Validator;
 class MessageController extends Controller
 {
     //
-    public function getMessage(int $conversation_id, int $user_id)
+    public function getMessageUser(int $conversation_id, int $user_id)
     {
         return Message::where("conversation_id", $conversation_id)->where("user_id_sender", $user_id)->get();
+    }
+    public function getMessageConversation(int $conversation_id)
+    {
+        return Message::where("conversation_id", $conversation_id)->get();
     }
     public function postMessage(Request $request)
     {

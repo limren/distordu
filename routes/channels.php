@@ -18,7 +18,7 @@ Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
 });
 
 // If user is connected, then we allow him access  to private channels
-Broadcast::channel('private.chat.{conversationId}', function ($user, $conversationId) {
+Broadcast::channel('chat.{conversationId}', function () {
     // He would try to access the channel only if he's connected
     return true;
 });

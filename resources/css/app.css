@@ -12,8 +12,7 @@
 }
 
 .home {
-    width: 100vw;
-    height: 100vh;
+    max-width: 100vw;
     background-image: url("../../public/assets/img/wizard.jpg");
     background-size: cover;
     display: flex;
@@ -102,16 +101,17 @@
 .home-main {
     display: flex;
     flex-direction: row;
+    min-height: 100vh;
+    max-height: 100vh;
     max-width: 100vw;
-    height: 100vh;
 }
 .home-main > div {
     width: 100%;
-    height: 100%;
+    max-height: 100vh; /*  Don't know why 100% doesn't work  */
 }
 /* Friends compo */
 .friends {
-    max-width: 100px;
+    max-width: 130px;
 }
 .sidebar {
     width: 100%;
@@ -129,6 +129,18 @@
     align-items: center;
 }
 
+.nav-icons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.nav-icons .handle-friends {
+    width: 3rem;
+    font-size: auto;
+    padding-bottom: 1rem;
+}
 .sidebar .pfp {
     margin-top: 18px;
     width: 50px;
@@ -150,6 +162,7 @@
     width: 100%;
     height: 100%;
     background-color: #25282d;
+    overflow-y: scroll;
 }
 
 /* Home component */
@@ -160,6 +173,7 @@
     height: 100%;
     display: flex;
     flex-direction: column;
+    position: relative;
 }
 
 .chat-main {
@@ -170,6 +184,8 @@
 
 .chat-footer {
     width: 100%;
+    position: absolute;
+    bottom: 0;
 }
 .chat-footer form {
     display: flex;
@@ -183,8 +199,8 @@
     width: 5%;
 }
 .messages {
-    width: 100%;
-    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;

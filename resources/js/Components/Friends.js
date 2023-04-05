@@ -19,9 +19,22 @@ export const Friends = ({ user }) => {
         <div className="friends">
             <div className="sidebar">
                 {friends.length == 0 ? "" : <RenderFriends friends={friends} />}
-                <Link to="/settings">
-                    <img src="images/settings.svg" className="settings" />
-                </Link>
+                <div className="nav-icons">
+                    <Link to="/handle-friends">
+                        <img
+                            src="images/icon_handle_friends.png"
+                            className="handle-friends"
+                            alt="Handle friend"
+                        />
+                    </Link>
+                    <Link to="/settings">
+                        <img
+                            src="images/settings.svg"
+                            className="settings"
+                            alt="Settings"
+                        />
+                    </Link>
+                </div>
             </div>
         </div>
     );

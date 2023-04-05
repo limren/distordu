@@ -24,6 +24,10 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     // API endpoints related to user's profile
     Route::controller(UserController::class)->group(function () {
+        Route::post("/chatmessage", function (Request $request) {
+            event(new ChatMessageEvent($request->message, $request->conversation_id, $request->senderId));
+            return null;
+        });
         // Profile picture of the user
         Route::post("profile/profilepicture", "storeProfilePicture");
         Route::put("profile/profilepicture", "storeProfilePicture");
@@ -31,12 +35,10 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         // Username
         Route::put("profile/username", "updateUsername");
     });
-    Route::get("/message/{conversation_id}/{user_id}", [MessageController::class, "getMessage"]);
+    Route::get("/message/{conversation_id}/", [MessageController::class, "getMessageConversation"]);
+    Route::get("/message/{conversation_id}/{user_id}", [MessageController::class, "getMessageUser"]);
     Route::post("/message/post", [MessageController::class, "postMessage"]);
-    Route::get("/chatmessage", function (Request $request) {
-        event(new ChatMessageEvent($request->message, $request->conversation_id));
-        return null;
-    });
+
     Route::post("/conversation/create", [ConversationController::class, "createConversation"]);
     Route::post("/conversation/getId", [ConversationController::class, "getConversationId"]);
 });

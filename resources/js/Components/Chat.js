@@ -1,5 +1,4 @@
 import instance from "../Utils/configAxios";
-import Echo from "laravel-echo";
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Messages from "./Subcomponents/Messages";
@@ -9,9 +8,7 @@ export const Chat = ({ user }) => {
     const [conversationId, setConversationId] = useState(null);
     const [messages, setMessages] = useState(null);
     const [enteredMessage, setEnteredMessage] = useState("");
-
     const getConversationId = (userId, friendId) => {
-        console.log("being called");
         instance
             .post("http://distordu.test/api/conversation/getId", {
                 user1_id: userId,
@@ -38,6 +35,13 @@ export const Chat = ({ user }) => {
                 .then((data) => {
                     if (data.status) {
                         setMessages([...messages, data.message]);
+                        instance
+                            .post("http://distordu.test/api/chatmessage", {
+                                message: enteredMessage,
+                                conversation_id: conversationId,
+                                senderId: user.id,
+                            })
+                            .catch((e) => console.log(e));
                     }
                 });
         } catch (error) {
@@ -46,14 +50,16 @@ export const Chat = ({ user }) => {
     };
     useEffect(() => {
         getConversationId(user.id, friendId);
-        const chatChannel = window.Echo.private(
-            `private.chat.${conversationId}`
-        );
-        chatChannel.listen(".chatmessage", (msg) => {
-            console.log(msg);
-        });
     }, []);
+    useEffect(() => {
+        return () => {
+            window.Echo.leave(`chat.${conversationId}`);
+        };
+    }, []);
+
     if (!conversationId) return null;
+    const chatChannel = window.Echo.private(`chat.${conversationId}`);
+
     return (
         <div className="chat">
             <div className="chat-main">
@@ -62,6 +68,8 @@ export const Chat = ({ user }) => {
                     userId={user.id}
                     setMessages={setMessages}
                     messages={messages}
+                    chatChannel={chatChannel}
+                    friendId={friendId}
                 />
             </div>
             <div className="chat-footer">
