@@ -18,14 +18,12 @@ const Messages = ({
             });
     }, []);
 
-    /*  The scrollToBottomRef function takes in parameter a ref, that is a reference to the div message DOM element, allowing us to scroll to the bottom of its children.
-     * We're using a callback function because we want to make sure that the div message DOM element is rendered before.
-     */
-    const scrollToBottomRef = useCallback((currentNode) => {
+    /*  The scrollToBottomRef function takes in parameter a ref, that is a reference to the div message DOM element, allowing us to scroll to the bottom of it. */
+    const scrollToBottomRef = (currentNode) => {
         if (currentNode) {
             scrollToBottom(currentNode);
         }
-    }, []);
+    };
     // We don't want to access to node.current since node is already the current node.
     const scrollToBottom = (node) => {
         node.scrollIntoView({
@@ -68,4 +66,5 @@ const Messages = ({
     );
 };
 
+// We memoized messages component to avoid useless re-renders.
 export default React.memo(Messages);

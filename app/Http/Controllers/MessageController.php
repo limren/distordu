@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Message;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class MessageController extends Controller
@@ -16,6 +18,17 @@ class MessageController extends Controller
     public function getMessageConversation(int $conversation_id)
     {
         return Message::where("conversation_id", $conversation_id)->get();
+    }
+    public function getMessageUserPaginate(int $conversation_id, int $user_id)
+    {
+        return Message::where("conversation_id", $conversation_id)->where("user_id_sender", $user_id)->paginate(15);
+    }
+    public function getMessageByDate(int $conversation_id)
+    {
+        // Grouping messages by the date of creation
+        return Message::all()->where("conversation_id", $conversation_id)->groupBy(function ($date) {
+            return \Carbon\Carbon::parse($date->created_at)->format('Y-m-d');
+        });
     }
     public function postMessage(Request $request)
     {

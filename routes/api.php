@@ -36,7 +36,9 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::put("profile/username", "updateUsername");
     });
     Route::get("/message/{conversation_id}/", [MessageController::class, "getMessageConversation"]);
+    Route::get("/message/{conversation_id}/date", [MessageController::class, "getMessageByDate"]);
     Route::get("/message/{conversation_id}/{user_id}", [MessageController::class, "getMessageUser"]);
+    Route::get("/message/{conversation_id}/{user_id}/paginated", [MessageController::class, "getMessageUserPaginate"]);
     Route::post("/message/post", [MessageController::class, "postMessage"]);
 
     Route::post("/conversation/create", [ConversationController::class, "createConversation"]);
