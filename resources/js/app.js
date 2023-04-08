@@ -25,6 +25,7 @@ const App = () => {
     const [user, setUser] = useState(
         JSON.parse(localStorage.getItem("user")) || null
     );
+    const [messages, setMessages] = useState(null);
     const [password, setPassword] = useState("");
     const [token, setToken] = useState(localStorage.getItem("token") || null);
     const [email, setEmail] = useState("");

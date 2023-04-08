@@ -200,6 +200,12 @@
     width: 5%;
 }
 .messages {
+    text-align: center;
+}
+.messages h2 {
+    font-size: 1.3rem;
+}
+.messages-by-date {
     max-width: 100%;
     display: flex;
     flex-direction: column;

@@ -1,12 +1,12 @@
 import instance from "../Utils/configAxios";
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import Messages from "./Subcomponents/Messages";
+import { MessagesMemo } from "./Subcomponents/Messages";
 
 export const Chat = ({ user }) => {
     let { friendId } = useParams();
-    const [conversationId, setConversationId] = useState(null);
     const [messages, setMessages] = useState(null);
+    const [conversationId, setConversationId] = useState(null);
     const [enteredMessage, setEnteredMessage] = useState("");
     const getConversationId = (userId, friendId) => {
         instance
@@ -34,7 +34,24 @@ export const Chat = ({ user }) => {
                 .then((res) => res.data)
                 .then((data) => {
                     if (data.status) {
-                        setMessages([...messages, data.message]);
+                        // We're checking if the date of the message has been already pushed. If not, we push the date & the message. If it has, we don't push the date but we push the message at its date.
+                        const dateNow = new Date().toISOString().split("T")[0];
+                        let dayArleadyPushed = false;
+                        let myMessages = messages;
+                        myMessages.map((messagesByDate) => {
+                            if (
+                                messagesByDate[0] === dateNow &&
+                                !dayArleadyPushed
+                            ) {
+                                messagesByDate[1].push(data.message);
+                                dayArleadyPushed = true;
+                            }
+                        });
+                        if (!dayArleadyPushed) {
+                            myMessages.push([dateNow, data.message]);
+                        }
+                        // ...myMessages is important here, since I initiated it at messages, ...myMessages will not reference to the messages array and thus, will rerender MessagesMemo component.
+                        setMessages([...myMessages]);
                         instance
                             .post("http://distordu.test/api/chatmessage", {
                                 message: enteredMessage,
@@ -50,8 +67,6 @@ export const Chat = ({ user }) => {
     };
     useEffect(() => {
         getConversationId(user.id, friendId);
-    }, []);
-    useEffect(() => {
         return () => {
             window.Echo.leave(`chat.${conversationId}`);
         };
@@ -63,7 +78,7 @@ export const Chat = ({ user }) => {
     return (
         <div className="chat">
             <div className="chat-main">
-                <Messages
+                <MessagesMemo
                     conversationId={conversationId}
                     userId={user.id}
                     setMessages={setMessages}

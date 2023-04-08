@@ -26,9 +26,10 @@ class MessageController extends Controller
     public function getMessageByDate(int $conversation_id)
     {
         // Grouping messages by the date of creation
-        return Message::all()->where("conversation_id", $conversation_id)->groupBy(function ($date) {
+        $messages = Message::where("conversation_id", $conversation_id)->get()->groupBy(function ($date) {
             return \Carbon\Carbon::parse($date->created_at)->format('Y-m-d');
         });
+        return $messages;
     }
     public function postMessage(Request $request)
     {
